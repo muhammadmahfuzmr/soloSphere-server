@@ -34,7 +34,7 @@ async function run() {
     // collection
 
     const jobsCollection = client.db('soloSphere').collection('jobs')
-const bidCollectin = client.db('soloSphere').collection('bids')
+const bidCollection = client.db('soloSphere').collection('bids')
     //get all job data from database
 app.get('/jobs', async (req, res)=>{
     const result = await jobsCollection.find().toArray()
@@ -53,7 +53,13 @@ app.get('/jobs/:id', async(req, res)=>{
 
 app.post('/bid', async(req, res)=>{
     const bidData = req.body;
-    const result = await bidCollectin.insertOne(bidData)
+    const result = await bidCollection.insertOne(bidData)
+    res.send(result)
+})
+// post job api
+app.post('/job', async(req, res)=>{
+    const jobData = req.body;
+    const result = await jobsCollection.insertOne(jobData)
     res.send(result)
 })
     // Send a ping to confirm a successful connection
